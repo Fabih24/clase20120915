@@ -1,5 +1,6 @@
 Modelar el sistema de cuentas de un banco.
 Las mismas pueden ser Cta Cte o Caja de Ahorro
+
 Las CC tienen un debito de $2 por cada extracción, posterior a la quinta.
  y permiten un descubierto de hasta $1000.
 Las CA en cambio no tienen debitos adicionales, pero permiten extracciones de hasta $1000

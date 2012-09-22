@@ -2,10 +2,15 @@ package ar.edu.unlam.tallerweb2.clase20120915
 
 abstract class Cuenta {
 	
-	double saldo
-	int cantidadMovimientos
+	def saldo
+	def cantidadMovimientos
 	Cliente cliente
 	
-	public abstract double extraer(double importe);
-
+	abstract double extraer(double importe);
+	
+	void prohibirImporteNegativo(double importe) {
+		if (importe < 0) {
+			throw new ImporteNegativoException("Espere por favor mientras le mandamos a la policia.")
+		}
+	}
 }

@@ -2,25 +2,28 @@ package ar.edu.unlam.tallerweb2.clase20120915
 
 class CuentaCorriente extends Cuenta {
 	
-
+	def debitoAdicional = 0
+	def debitoAdicionalPosteriorAccionRecargo = 2
+	int descubiertoPermitido = 1000
+	def posteriorAccionRecargo = 5
+	
 	@Override
 	double extraer(double importe) {
-		if(importe<=0){
-			throw new ImporteNegativoException('El importe a extraer debe ser positivo.')
+		
+		this.prohibirImporteNegativo(importe)
+		
+		if (cantidadMovimientos >= posteriorAccionRecargo) {
+			debitoAdicional = debitoAdicionalPosteriorAccionRecargo
 		}
-
-		double saldoParcial = saldo
-		if(cantidadMovimientos + 1 > 5){
-			importe +=2
+					
+		if (importe > (saldo + descubiertoPermitido)) {
+			throw new SaldoInsuficienteException('Usted no tiene los fondos necesarios para realizar esta operación.')
 		}
-
-		saldoParcial -= importe
-		if(saldoParcial>-1000){
-			saldo = saldoParcial
-			cantidadMovimientos++
-		}else{
-			throw new SaldoInsuficienteException('El saldo actual $'+saldo+' no le permite realizar la extracción.')
-		}
+		
+		saldo = saldo - importe - debitoAdicional
+		
+		cantidadMovimientos++
+		
 		saldo
 	}
 }
